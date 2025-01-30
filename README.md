@@ -1,6 +1,27 @@
 # **ZenTasks**
 
+![ZenTasks Banner](https://via.placeholder.com/1200x400.png?text=ZenTasks+Banner)
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
+
 ZenTasks is an **intelligent task management and productivity tool** designed to help users keep track of to-dos, balance workloads, stay organized, and reduce anxiety. It features a **Spring Boot back end**, a **React front end**, and integrates **AI/ML** for task recommendations and predictions.
+
+---
+
+## **Table of Contents**
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Back End Setup](#back-end-setup)
+  - [Front End Setup](#front-end-setup)
+  - [AI/ML Setup](#aiml-setup)
+- [Deployment](#deployment)
+  - [Docker](#docker)
+  - [AWS](#aws)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
+- [Contact](#contact)
 
 ---
 
@@ -51,6 +72,10 @@ Follow these steps to set up and run ZenTasks on your local machine.
 - **Docker**: Install from [here](https://www.docker.com/products/docker-desktop).
 
 ### **Back End Setup**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/ZenTasks.git
+   cd ZenTasks/backend
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/ZenTasks.git
