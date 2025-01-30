@@ -173,9 +173,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## **Contact**
 For questions or feedback, feel free to reach out:
-- **Email**: your-email@example.com
-- **GitHub**: [your-username](https://github.com/your-username)
+- **Email**: walazer2112@gmail.com
+- **GitHub**: https://github.com/alicrear
 
----
 
-This README provides a clear overview of the project, how to set it up, and how to contribute. You can customize it further to suit your needs. Let me know if you need help with anything else! 🚀
