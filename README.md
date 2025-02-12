@@ -1,6 +1,6 @@
 # **ZenTasks**
 
-![ZenTasks Banner]
+ZenTasks Banner
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ZenTasks is an **intelligent task management and productivity tool** designed to help users keep track of to-dos, balance workloads, stay organized, and reduce anxiety. It features a **Spring Boot back end**, a **React front end**, and integrates **AI/ML** for task recommendations and predictions.
