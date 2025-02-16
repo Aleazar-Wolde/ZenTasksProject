@@ -1,49 +1,58 @@
+// frontend/src/components/TaskForm.jsx
 import React, { useState } from 'react';
+import { Container, TextField, Button, Typography } from '@mui/material';
 import axios from 'axios';
 
-const TaskForm = ({ onTaskAdded }) => {
+function TaskForm({ onTaskAdded }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
-
-  const handleSubmit = async (e) => {
+  
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const newTask = { title, description, dueDate };
-    const response = await axios.post('/api/tasks', newTask);
-    onTaskAdded(response.data);
-    setTitle('');
-    setDescription('');
-    setDueDate('');
+    axios.post('/api/tasks', { title, description, dueDate, status: 'TODO' })
+      .then(response => {
+        onTaskAdded(response.data);
+        setTitle('');
+        setDescription('');
+        setDueDate('');
+      })
+      .catch(error => console.error('Error adding task:', error));
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6">
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="w-full p-2 mb-2 border rounded"
-        required
-      />
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className="w-full p-2 mb-2 border rounded"
-      />
-      <input
-        type="date"
-        value={dueDate}
-        onChange={(e) => setDueDate(e.target.value)}
-        className="w-full p-2 mb-2 border rounded"
-        required
-      />
-      <button type="submit" className="bg-blue-600 text-white p-2 rounded">
-        Add Task
-      </button>
-    </form>
+    <Container>
+      <Typography variant="h5">Add New Task</Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Due Date"
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          fullWidth
+          margin="normal"
+          InputLabelProps={{ shrink: true }}
+        />
+        <Button type="submit" variant="contained" color="primary">
+          Add Task
+        </Button>
+      </form>
+    </Container>
   );
-};
+}
 
 export default TaskForm;

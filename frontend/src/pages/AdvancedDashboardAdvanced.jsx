@@ -28,7 +28,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Bar, Line, Pie } from 'react-chartjs-2';
 import axios from 'axios';
-import { io } from 'socket.io-client';
 
 // Register ChartJS components (required in Chart.js v3+)
 import {
@@ -71,16 +70,6 @@ function AdvancedDashboardAdvanced() {
 
   // Real-time notifications (simulated)
   const [notifications, setNotifications] = useState([]);
-
-  // Socket for real-time updates (assuming backend emits 'taskUpdate' events)
-  useEffect(() => {
-    const socket = io('http://localhost:8080');
-    socket.on('taskUpdate', (update) => {
-      setNotifications(prev => [...prev, update]);
-      fetchTasks();
-    });
-    return () => socket.disconnect();
-  }, []);
 
   // Fetch tasks from backend
   const fetchTasks = useCallback(() => {
@@ -269,35 +258,48 @@ function AdvancedDashboardAdvanced() {
                   <Grid item xs={12} md={4} key={status}>
                     <Paper sx={{ p: 2, minHeight: 300 }}>
                       <Typography variant="h6" gutterBottom>{status}</Typography>
-                      <Droppable droppableId={status}>
-                        {(provided) => (
-                          <Box ref={provided.innerRef} {...provided.droppableProps} sx={{ minHeight: 250 }}>
-                            {kanbanColumns[status].map((task, index) => (
-                              <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
-                                {(provided, snapshot) => (
-                                  <Paper
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    sx={{
-                                      p: 1,
-                                      mb: 1,
-                                      backgroundColor: snapshot.isDragging ? 'lightblue' : 'white',
-                                    }}
-                                  >
-                                    <Typography variant="subtitle1">{task.title}</Typography>
-                                    <Typography variant="body2">{task.description}</Typography>
-                                    <Button variant="outlined" size="small" sx={{ mt: 1 }} onClick={() => fetchAiPrediction(task.description)}>
-                                      Predict Duration
-                                    </Button>
-                                  </Paper>
-                                )}
-                              </Draggable>
-                            ))}
-                            {provided.placeholder}
-                          </Box>
-                        )}
-                      </Droppable>
+                      <Droppable 
+  droppableId={status} 
+  isDropDisabled={false} 
+  isCombineEnabled={false}
+  ignoreContainerClipping={false}
+>
+  {(provided) => (
+    <Box ref={provided.innerRef} {...provided.droppableProps} sx={{ minHeight: 250 }}>
+      {kanbanColumns[status].map((task, index) => (
+        <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
+          {(provided, snapshot) => (
+            <Paper
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              sx={{
+                p: 1,
+                mb: 1,
+                backgroundColor: snapshot.isDragging ? 'lightblue' : 'white',
+              }}
+            >
+              <Typography variant="subtitle1">{task.title}</Typography>
+              <Typography variant="body2">{task.description}</Typography>
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ mt: 1 }}
+                onClick={() => fetchAiPrediction(task.description)}
+              >
+                Predict Duration
+              </Button>
+            </Paper>
+          )}
+        </Draggable>
+      ))}
+      {provided.placeholder}
+    </Box>
+  )}
+</Droppable>
+
+
+
                     </Paper>
                   </Grid>
                 ))}
