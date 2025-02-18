@@ -1,4 +1,6 @@
 # **ZenTasks**
+![image](https://github.com/user-attachments/assets/b3c87557-5fd4-4298-8b86-ef7b55b6bfaa)
+
 
 ZenTasks Banner
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
