@@ -56,7 +56,7 @@ ChartJS.register(
 
 const drawerWidth = 240;
 
-function AdvancedDashboardAdvanced() {
+function Dashboard() {
   // Sidebar state and view selection
   const [mobileOpen, setMobileOpen] = useState(false);
   const [view, setView] = useState('grid'); // 'grid', 'kanban', or 'charts'
@@ -345,4 +345,4 @@ function AdvancedDashboardAdvanced() {
   );
 }
 
-export default AdvancedDashboardAdvanced;
+export default Dashboard;

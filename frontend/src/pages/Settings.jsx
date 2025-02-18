@@ -2,7 +2,7 @@
 import React from 'react';
 import { Container, Typography } from '@mui/material';
 
-function Setting() {
+function Settings() {
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
@@ -15,4 +15,4 @@ function Setting() {
   );
 }
 
-export default Setting;
+export default Settings;
