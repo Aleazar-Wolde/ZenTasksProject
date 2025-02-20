@@ -209,7 +209,7 @@ function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            ZenTasks Advanced Dashboard
+            ZenTasks
           </Typography>
         </Toolbar>
       </AppBar>
