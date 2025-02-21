@@ -197,5 +197,3 @@ We welcome contributions! Here’s how you can help:
 For questions or feedback, feel free to reach out:
 - **Email**: walazer2112@gmail.com
 - **GitHub**: https://github.com/alicrear
-
-
