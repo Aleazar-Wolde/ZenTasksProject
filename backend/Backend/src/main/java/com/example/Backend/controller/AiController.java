@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000")  // Allow your React app to access this endpoint
+@CrossOrigin(origins = "http://localhost:3001")  // Allow your React app to access this endpoint
 @RestController
 @RequestMapping("/api/ai")
 public class AiController {
