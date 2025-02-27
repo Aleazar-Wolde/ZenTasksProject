@@ -1,4 +1,5 @@
 // frontend/src/pages/Tasks.jsx
+
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, TextField, Button, List, ListItem, ListItemText, IconButton, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -20,7 +21,7 @@ function Tasks() {
   }, []);
 
   // Add a new task
-  const handleAddTask = (e) => {
+  const handleAddTask = (e) => {W
     e.preventDefault();
     // Assuming status defaults to "TODO"
     const taskToAdd = { ...newTask, status: 'TODO' };
@@ -95,5 +96,4 @@ function Tasks() {
     </Container>
   );
 }
-
 export default Tasks;

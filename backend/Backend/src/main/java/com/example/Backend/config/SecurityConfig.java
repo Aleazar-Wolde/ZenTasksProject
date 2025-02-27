@@ -1,18 +1,17 @@
+// backend/src/main/java/com/example/Backend/config/SecurityConfig.java
 package com.example.Backend.config;
 
 import com.example.Backend.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 
 @Configuration
 @EnableWebSecurity
@@ -26,13 +25,10 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
-                        // Allow public access to authentication endpoints
-                        .requestMatchers("/api/auth/**").permitAll()
-                        // Allow public access to other non-sensitive endpoints if needed
-                        .requestMatchers(HttpMethod.GET, "/api/tasks").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()  // Allow registration and login
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults());
+                .httpBasic(); // For now, using HTTP Basic authentication
         return http.build();
     }
 
@@ -41,9 +37,10 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // Expose AuthenticationManager if needed for login endpoints
+    // Expose AuthenticationManager so we can use it in our AuthController
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 }
+
