@@ -1,4 +1,3 @@
-// frontend/src/pages/AdvancedDashboardAdvanced.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   AppBar,
@@ -8,7 +7,7 @@ import {
   Drawer,
   Divider,
   List,
-  ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   Box,
@@ -105,7 +104,8 @@ function Dashboard() {
     { field: 'title', headerName: 'Title', width: 150 },
     { field: 'description', headerName: 'Description', width: 250 },
     { field: 'status', headerName: 'Status', width: 130 },
-    { field: 'due_date', headerName: 'Due Date', width: 150 },
+    // Make sure your task field matches the actual data key (dueDate vs. due_date)
+    { field: 'dueDate', headerName: 'Due Date', width: 150 },
   ];
 
   // Kanban view: handle drag and drop
@@ -115,7 +115,10 @@ function Dashboard() {
     if (source.droppableId === destination.droppableId && source.index === destination.index) return;
 
     const sourceColumn = [...kanbanColumns[source.droppableId]];
-    const destColumn = source.droppableId === destination.droppableId ? sourceColumn : [...kanbanColumns[destination.droppableId]];
+    const destColumn =
+      source.droppableId === destination.droppableId
+        ? sourceColumn
+        : [...kanbanColumns[destination.droppableId]];
     const [movedTask] = sourceColumn.splice(source.index, 1);
     movedTask.status = destination.droppableId;
     destColumn.splice(destination.index, 0, movedTask);
@@ -127,53 +130,61 @@ function Dashboard() {
     });
 
     // Optionally update backend
-    axios.put(`/api/tasks/${movedTask.id}`, movedTask)
+    axios
+      .put(`/api/tasks/${movedTask.id}`, movedTask)
       .then(() => console.log('Task updated'))
-      .catch(error => console.error('Error updating task:', error));
+      .catch((error) => console.error('Error updating task:', error));
   };
 
   // AI Prediction: call backend to get prediction based on task description
   const fetchAiPrediction = (description) => {
-    axios.post('/api/ai/predict', { description })
-      .then(response => setAiPrediction(response.data))
-      .catch(error => console.error('Error fetching AI prediction:', error));
+    axios
+      .post('/api/ai/predict', { description })
+      .then((response) => setAiPrediction(response.data))
+      .catch((error) => console.error('Error fetching AI prediction:', error));
   };
 
   // Chart data for tasks by status
   const barChartData = {
     labels: ['TODO', 'IN_PROGRESS', 'DONE'],
-    datasets: [{
-      label: 'Tasks by Status',
-      data: [
-        tasks.filter(task => task.status === 'TODO').length,
-        tasks.filter(task => task.status === 'IN_PROGRESS').length,
-        tasks.filter(task => task.status === 'DONE').length,
-      ],
-      backgroundColor: ['#f44336', '#ff9800', '#4caf50'],
-    }],
+    datasets: [
+      {
+        label: 'Tasks by Status',
+        data: [
+          tasks.filter((task) => task.status === 'TODO').length,
+          tasks.filter((task) => task.status === 'IN_PROGRESS').length,
+          tasks.filter((task) => task.status === 'DONE').length,
+        ],
+        backgroundColor: ['#f44336', '#ff9800', '#4caf50'],
+      },
+    ],
   };
 
   const lineChartData = {
     labels: tasks.map((_, index) => `Task ${index + 1}`),
-    datasets: [{
-      label: 'Duration Trend',
-      data: tasks.map(() => Math.floor(Math.random() * 100)), // Replace with real trend data
-      fill: false,
-      borderColor: '#3e95cd',
-      tension: 0.1,
-    }],
+    datasets: [
+      {
+        label: 'Duration Trend',
+        data: tasks.map(() => Math.floor(Math.random() * 100)), // Replace with real trend data
+        fill: false,
+        borderColor: '#3e95cd',
+        tension: 0.1,
+      },
+    ],
   };
 
   const pieChartData = {
     labels: ['TODO', 'IN_PROGRESS', 'DONE'],
-    datasets: [{
-      data: [
-        tasks.filter(task => task.status === 'TODO').length,
-        tasks.filter(task => task.status === 'IN_PROGRESS').length,
-        tasks.filter(task => task.status === 'DONE').length,
-      ],
-      backgroundColor: ['#f44336', '#ff9800', '#4caf50'],
-    }],
+    datasets: [
+      {
+        data: [
+          tasks.filter((task) => task.status === 'TODO').length,
+          tasks.filter((task) => task.status === 'IN_PROGRESS').length,
+          tasks.filter((task) => task.status === 'DONE').length,
+        ],
+        backgroundColor: ['#f44336', '#ff9800', '#4caf50'],
+      },
+    ],
   };
 
   // Sidebar drawer content
@@ -190,10 +201,11 @@ function Dashboard() {
           { text: 'Calendar', icon: <CalendarTodayIcon /> },
           { text: 'Settings', icon: <SettingsIcon /> },
         ].map((item) => (
-          <ListItem button key={item.text}>
+          // Use ListItemButton instead of <ListItem button> to avoid the warning
+          <ListItemButton key={item.text}>
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.text} />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
     </div>
@@ -205,7 +217,12 @@ function Dashboard() {
       {/* AppBar Header */}
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
-          <IconButton color="inherit" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: 'none' } }}>
+          <IconButton
+            color="inherit"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
@@ -220,13 +237,19 @@ function Dashboard() {
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{ keepMounted: true }}
-        sx={{ display: { xs: 'block', sm: 'none' }, '& .MuiDrawer-paper': { width: drawerWidth } }}
+        sx={{
+          display: { xs: 'block', sm: 'none' },
+          '& .MuiDrawer-paper': { width: drawerWidth },
+        }}
       >
         {drawer}
       </Drawer>
       <Drawer
         variant="permanent"
-        sx={{ display: { xs: 'none', sm: 'block' }, '& .MuiDrawer-paper': { width: drawerWidth } }}
+        sx={{
+          display: { xs: 'none', sm: 'block' },
+          '& .MuiDrawer-paper': { width: drawerWidth },
+        }}
         open
       >
         {drawer}
@@ -237,7 +260,13 @@ function Dashboard() {
         <Toolbar />
         <Container maxWidth="lg">
           {/* View Tabs */}
-          <Tabs value={view} onChange={handleViewChange} textColor="primary" indicatorColor="primary" sx={{ mb: 3 }}>
+          <Tabs
+            value={view}
+            onChange={handleViewChange}
+            textColor="primary"
+            indicatorColor="primary"
+            sx={{ mb: 3 }}
+          >
             <Tab value="grid" label="Grid View" />
             <Tab value="kanban" label="Kanban View" />
             <Tab value="charts" label="Charts" />
@@ -246,7 +275,13 @@ function Dashboard() {
           {/* Grid View */}
           {view === 'grid' && (
             <Paper sx={{ height: 500, width: '100%' }}>
-              <DataGrid rows={tasks} columns={gridColumns} pageSize={10} rowsPerPageOptions={[5, 10, 20]} checkboxSelection />
+              <DataGrid
+                rows={tasks}
+                columns={gridColumns}
+                pageSize={10}
+                rowsPerPageOptions={[5, 10, 20]}
+                checkboxSelection
+              />
             </Paper>
           )}
 
@@ -257,49 +292,64 @@ function Dashboard() {
                 {Object.keys(kanbanColumns).map((status) => (
                   <Grid item xs={12} md={4} key={status}>
                     <Paper sx={{ p: 2, minHeight: 300 }}>
-                      <Typography variant="h6" gutterBottom>{status}</Typography>
-                      <Droppable 
-  droppableId={status} 
-  isDropDisabled={false} 
-  isCombineEnabled={false}
-  ignoreContainerClipping={false}
->
-  {(provided) => (
-    <Box ref={provided.innerRef} {...provided.droppableProps} sx={{ minHeight: 250 }}>
-      {kanbanColumns[status].map((task, index) => (
-        <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
-          {(provided, snapshot) => (
-            <Paper
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-              sx={{
-                p: 1,
-                mb: 1,
-                backgroundColor: snapshot.isDragging ? 'lightblue' : 'white',
-              }}
-            >
-              <Typography variant="subtitle1">{task.title}</Typography>
-              <Typography variant="body2">{task.description}</Typography>
-              <Button
-                variant="outlined"
-                size="small"
-                sx={{ mt: 1 }}
-                onClick={() => fetchAiPrediction(task.description)}
-              >
-                Predict Duration
-              </Button>
-            </Paper>
-          )}
-        </Draggable>
-      ))}
-      {provided.placeholder}
-    </Box>
-  )}
-</Droppable>
-
-
-
+                      <Typography variant="h6" gutterBottom>
+                        {status}
+                      </Typography>
+                      <Droppable
+                        droppableId={status}
+                        isDropDisabled={false}
+                        isCombineEnabled={false}
+                        ignoreContainerClipping={false}
+                      >
+                        {(provided) => (
+                          <Box
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                            sx={{ minHeight: 250 }}
+                          >
+                            {kanbanColumns[status].map((task, index) => (
+                              <Draggable
+                                key={task.id}
+                                draggableId={task.id.toString()}
+                                index={index}
+                              >
+                                {(provided, snapshot) => (
+                                  <Paper
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    sx={{
+                                      p: 1,
+                                      mb: 1,
+                                      backgroundColor: snapshot.isDragging
+                                        ? 'lightblue'
+                                        : 'white',
+                                    }}
+                                  >
+                                    <Typography variant="subtitle1">
+                                      {task.title}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                      {task.description}
+                                    </Typography>
+                                    <Button
+                                      variant="outlined"
+                                      size="small"
+                                      sx={{ mt: 1 }}
+                                      onClick={() =>
+                                        fetchAiPrediction(task.description)
+                                      }
+                                    >
+                                      Predict Duration
+                                    </Button>
+                                  </Paper>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </Box>
+                        )}
+                      </Droppable>
                     </Paper>
                   </Grid>
                 ))}
@@ -312,19 +362,25 @@ function Dashboard() {
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
                 <Paper sx={{ p: 2 }}>
-                  <Typography variant="h6" gutterBottom>Task Status (Bar Chart)</Typography>
+                  <Typography variant="h6" gutterBottom>
+                    Task Status (Bar Chart)
+                  </Typography>
                   <Bar data={barChartData} />
                 </Paper>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Paper sx={{ p: 2 }}>
-                  <Typography variant="h6" gutterBottom>Task Trend (Line Chart)</Typography>
+                  <Typography variant="h6" gutterBottom>
+                    Task Trend (Line Chart)
+                  </Typography>
                   <Line data={lineChartData} />
                 </Paper>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Paper sx={{ p: 2 }}>
-                  <Typography variant="h6" gutterBottom>Task Distribution (Pie Chart)</Typography>
+                  <Typography variant="h6" gutterBottom>
+                    Task Distribution (Pie Chart)
+                  </Typography>
                   <Pie data={pieChartData} />
                 </Paper>
               </Grid>
@@ -335,7 +391,9 @@ function Dashboard() {
           {aiPrediction && (
             <Paper sx={{ p: 2, mt: 3 }}>
               <Typography variant="h6">AI Prediction Detail</Typography>
-              <Typography>Predicted Duration: {aiPrediction.predictedDuration} minutes</Typography>
+              <Typography>
+                Predicted Duration: {aiPrediction.predictedDuration} minutes
+              </Typography>
               <Typography variant="body2">{aiPrediction.details}</Typography>
             </Paper>
           )}

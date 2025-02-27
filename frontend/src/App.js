@@ -2,7 +2,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
-import Tasks from './components/Tasks';
+import Tasks from './pages/Tasks';
 import Calendar from './pages/Calendar';
 import Settings from './pages/Settings';
 import Login from './pages/Login';

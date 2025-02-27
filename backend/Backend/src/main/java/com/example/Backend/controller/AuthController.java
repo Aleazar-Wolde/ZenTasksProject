@@ -1,4 +1,3 @@
-// backend/src/main/java/com/example/Backend/controller/AuthController.java
 package com.example.Backend.controller;
 
 import com.example.Backend.model.User;
@@ -42,7 +41,6 @@ public class AuthController {
                             loginRequest.getUsername(), loginRequest.getPassword()
                     )
             );
-            // For now, simply return a success message.
             return ResponseEntity.ok("Login successful");
         } catch(Exception ex) {
             return ResponseEntity.status(401).body("Invalid username or password");
@@ -50,7 +48,6 @@ public class AuthController {
     }
 }
 
-// Create a DTO for the login request
 class LoginRequest {
     private String username;
     private String password;
@@ -60,4 +57,3 @@ class LoginRequest {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 }
-
