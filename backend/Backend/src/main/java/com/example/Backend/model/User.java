@@ -41,7 +41,7 @@ public class User {
     public String getPassword(){
         return password;
     }
-    public void setPassword(String encode){
+    public void setPassword(String password){
         this.password = password;
     }
 }
