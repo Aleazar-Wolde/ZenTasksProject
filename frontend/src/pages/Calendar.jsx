@@ -1,4 +1,3 @@
-// frontend/src/pages/Calendar.jsx
 import React from 'react';
 import { Container, Typography } from '@mui/material';
 

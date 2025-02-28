@@ -27,6 +27,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Bar, Line, Pie } from 'react-chartjs-2';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 // Register ChartJS components (required in Chart.js v3+)
 import {

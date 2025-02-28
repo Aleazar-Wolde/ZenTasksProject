@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import EditTaskDialog from '../components/EditTaskDialog';
+import { Link } from 'react-router-dom';
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
@@ -23,7 +24,6 @@ function Tasks() {
 
   const handleAddTask = (e) => {
     e.preventDefault();
-    // Default new task status is "TODO"
     const taskToAdd = { ...newTask, status: 'TODO' };
     axios.post('/api/tasks', taskToAdd)
       .then(response => {
@@ -90,16 +90,19 @@ function Tasks() {
       <Typography variant="h5" gutterBottom>Task List</Typography>
       <List>
         {tasks.map(task => (
-          <ListItem key={task.id} secondaryAction={
-            <>
-              <IconButton edge="end" onClick={() => handleOpenEditDialog(task)}>
-                <EditIcon />
-              </IconButton>
-              <IconButton edge="end" onClick={() => handleDeleteTask(task.id)}>
-                <DeleteIcon />
-              </IconButton>
-            </>
-          }>
+          <ListItem
+            key={task.id}
+            secondaryAction={
+              <>
+                <IconButton edge="end" onClick={() => handleOpenEditDialog(task)}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton edge="end" onClick={() => handleDeleteTask(task.id)}>
+                  <DeleteIcon />
+                </IconButton>
+              </>
+            }
+          >
             <ListItemText
               primary={task.title}
               secondary={`Description: ${task.description} | Due: ${new Date(task.dueDate).toLocaleDateString()}`}
