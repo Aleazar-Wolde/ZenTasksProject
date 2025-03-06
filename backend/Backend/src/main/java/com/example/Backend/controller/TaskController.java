@@ -56,7 +56,6 @@ public class TaskController {
         task.setDueDate(taskDetails.getDueDate());
         return taskRepository.save(task);
     }
-
     // Delete a task if it belongs to the current user
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id, Authentication authentication) {
