@@ -64,7 +64,7 @@ function Dashboard() {
   const [kanbanColumns, setKanbanColumns] = useState({
     TODO: [],
     IN_PROGRESS: [],
-    DONE: []
+    DONE: [],
   });
   const [aiPrediction, setAiPrediction] = useState(null);
 
@@ -73,13 +73,14 @@ function Dashboard() {
 
   // Fetch tasks from backend
   const fetchTasks = useCallback(() => {
-    axios.get('/api/tasks')
+    axios
+      .get('/api/tasks')
       .then((response) => {
         setTasks(response.data);
         setKanbanColumns({
-          TODO: response.data.filter(task => task.status === 'TODO'),
-          IN_PROGRESS: response.data.filter(task => task.status === 'IN_PROGRESS'),
-          DONE: response.data.filter(task => task.status === 'DONE'),
+          TODO: response.data.filter((task) => task.status === 'TODO'),
+          IN_PROGRESS: response.data.filter((task) => task.status === 'IN_PROGRESS'),
+          DONE: response.data.filter((task) => task.status === 'DONE'),
         });
       })
       .catch((error) => console.error('Error fetching tasks:', error));
@@ -188,6 +189,14 @@ function Dashboard() {
     ],
   };
 
+  // Navigation items for the sidebar
+  const navItems = [
+    { text: 'Dashboard', icon: <DashboardIcon />, route: '/' },
+    { text: 'Tasks', icon: <AssignmentIcon />, route: '/tasks' },
+    { text: 'Calendar', icon: <CalendarTodayIcon />, route: '/calendar' },
+    { text: 'Settings', icon: <SettingsIcon />, route: '/settings' },
+  ];
+
   // Sidebar drawer content
   const drawer = (
     <div>
@@ -196,14 +205,12 @@ function Dashboard() {
       </Toolbar>
       <Divider />
       <List>
-        {[
-          { text: 'Dashboard', icon: <DashboardIcon /> },
-          { text: 'Tasks', icon: <AssignmentIcon /> },
-          { text: 'Calendar', icon: <CalendarTodayIcon /> },
-          { text: 'Settings', icon: <SettingsIcon /> },
-        ].map((item) => (
-          // Use ListItemButton instead of <ListItem button> to avoid the warning
-          <ListItemButton key={item.text}>
+        {navItems.map((item) => (
+          <ListItemButton
+            key={item.text}
+            component={Link}
+            to={item.route} // This enables navigation
+          >
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.text} />
           </ListItemButton>
@@ -212,7 +219,6 @@ function Dashboard() {
     </div>
   );
 
-  // Render view based on selected tab
   return (
     <Box sx={{ display: 'flex' }}>
       {/* AppBar Header */}
