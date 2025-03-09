@@ -290,7 +290,6 @@ function Dashboard() {
               />
             </Paper>
           )}
-
           {/* Kanban View */}
           {view === 'kanban' && (
             <DragDropContext onDragEnd={onDragEnd}>
