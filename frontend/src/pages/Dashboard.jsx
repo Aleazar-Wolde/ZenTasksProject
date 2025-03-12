@@ -406,7 +406,6 @@ function Dashboard() {
       </Box>
     </Box>
   );
-  
 }
 
 export default Dashboard;
