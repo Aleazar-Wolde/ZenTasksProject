@@ -51,10 +51,7 @@ function CalendarPage() {
       <Typography variant="h4" gutterBottom>
         Calendar View
       </Typography>
-      <Typography>
-        Below is a calendar showing tasks by their due date.
-      </Typography>
-
+      
       <div style={{ height: 600, marginTop: 20 }}>
         <Calendar
           localizer={localizer}
