@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "user_settings")
 public class UserSettings {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,5 +29,4 @@ public class UserSettings {
         this.notifications = notifications;
     }
 
-    // getters and setters...
 }
