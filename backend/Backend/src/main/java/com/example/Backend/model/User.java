@@ -16,6 +16,8 @@ public class User {
     @Column
     private String password;
 
+    private String theme;
+
     //Constructors
     public User(){
 
