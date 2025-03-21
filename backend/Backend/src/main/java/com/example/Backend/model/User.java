@@ -52,4 +52,24 @@ public class User {
     public void setPassword(String password){
         this.password = password;
     }
+    public String getTheme() {
+        return theme;
+    }
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public String getDefaultView() {
+        return defaultView;
+    }
+    public void setDefaultView(String defaultView) {
+        this.defaultView = defaultView;
+    }
+
+    public boolean isNotifications() {
+        return notification;
+    }
+    public void setNotifications(boolean notification) {
+        this.notification = notification;
+    }
 }
