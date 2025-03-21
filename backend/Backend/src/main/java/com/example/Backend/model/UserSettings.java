@@ -14,19 +14,16 @@ public class UserSettings {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-
     private String theme;         // "light" or "dark"
     private String defaultView;   // "grid", "kanban", or "charts"
     private boolean notifications; // true/false
 
     // Constructors
     public UserSettings() {}
-
     public UserSettings(User user, String theme, String defaultView, boolean notifications) {
         this.user = user;
         this.theme = theme;
         this.defaultView = defaultView;
         this.notifications = notifications;
     }
-
 }
