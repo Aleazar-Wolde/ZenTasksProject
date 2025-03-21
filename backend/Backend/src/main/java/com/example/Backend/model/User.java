@@ -18,6 +18,7 @@ public class User {
 
     private String theme;
     private String defaultView;
+    private boolean notification;
 
     //Constructors
     public User(){
