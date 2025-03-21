@@ -29,6 +29,8 @@ public class User {
         this.password = password;
 
         this.theme = "ligiht";
+        this.defaultView = "grid";
+        this.notification = true;
     }
 
     //Getters and setters
