@@ -26,4 +26,8 @@ public class UserSettings {
         this.defaultView = defaultView;
         this.notifications = notifications;
     }
+
+    public Object getTheme() {
+        return null;
+    }
 }

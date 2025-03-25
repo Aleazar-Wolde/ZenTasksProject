@@ -46,7 +46,7 @@ public class SettingsController {
                 .orElse(new UserSettings(user, "light", "grid", true));
 
         // update fields
-        settings.setTheme(newSettings.getTheme());
+        settings.getClass(newSettings.getTheme());
         settings.setDefaultView(newSettings.getDefaultView());
         settings.setNotifications(newSettings.isNotifications());
 

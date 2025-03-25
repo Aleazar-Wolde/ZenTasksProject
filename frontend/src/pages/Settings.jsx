@@ -71,7 +71,6 @@ function Settings() {
           }
           label="Enable Notifications"
         />
-        
         <Button type="submit" variant="contained">Save Settings</Button>
       </Box>
     </Container>
