@@ -30,4 +30,7 @@ public class UserSettings {
     public Object getTheme() {
         return null;
     }
+
+    public void getClass(Object theme) {
+    }
 }
