@@ -38,19 +38,21 @@ public class SettingsController {
     @PutMapping
     public UserSettings updateSettings(Authentication auth, @RequestBody UserSettings newSettings) {
         String username = auth.getName();
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // load existing settings or create new
+        // load existing settings or create new defaults
         UserSettings settings = userSettingsRepository
                 .findById(user.getId())
                 .orElse(new UserSettings(user, "light", "grid", true));
 
         // update fields
-        settings.getClass(newSettings.getTheme());
+        settings.setTheme(newSettings.getTheme());          // <-- fix here
         settings.setDefaultView(newSettings.getDefaultView());
         settings.setNotifications(newSettings.isNotifications());
 
         // save
         return userSettingsRepository.save(settings);
     }
+
 }
