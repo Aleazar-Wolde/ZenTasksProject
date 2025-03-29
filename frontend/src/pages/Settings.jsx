@@ -19,7 +19,6 @@ function Settings() {
       })
       .catch(err => console.error('Error fetching settings:', err));
   }, []);
-
   const handleSave = (e) => {
     e.preventDefault();
     const newSettings = { theme, defaultView, notifications };
