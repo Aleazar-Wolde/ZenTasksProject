@@ -7,7 +7,6 @@ function Settings() {
   const [theme, setTheme] = useState('light');
   const [defaultView, setDefaultView] = useState('grid');
   const [notifications, setNotifications] = useState(true);
-
   useEffect(() => {
     // fetch existing settings from back end
     axios.get('/api/settings')
