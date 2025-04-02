@@ -26,7 +26,6 @@ function Settings() {
       .then(res => {
         alert('Settings saved!');
       })
-      
       .catch(err => console.error('Error saving settings:', err));
   };
 
