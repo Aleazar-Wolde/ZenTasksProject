@@ -28,6 +28,7 @@ function Settings() {
       })
       .catch(err => console.error('Error saving settings:', err));
   };
+  
   return (
     <Container>
       <Typography variant="h4" gutterBottom>Settings</Typography>
