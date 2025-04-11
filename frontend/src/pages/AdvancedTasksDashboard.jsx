@@ -89,7 +89,6 @@ function AdvancedTasksDashboard() {
       })
       .catch((err) => console.error('Error updating task:', err));
   };
-
   // DataGrid columns
   const columns = [
     { field: 'id', headerName: 'ID', width: 70, sortable: true },
