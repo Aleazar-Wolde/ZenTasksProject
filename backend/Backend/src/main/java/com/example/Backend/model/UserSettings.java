@@ -33,4 +33,7 @@ public class UserSettings {
 
     public void getClass(Object theme) {
     }
+
+    public void setTheme(Object theme) {
+    }
 }
