@@ -30,7 +30,6 @@ public class SecurityConfig {
                 .httpBasic(); // Using HTTP Basic for now
         return http.build();
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

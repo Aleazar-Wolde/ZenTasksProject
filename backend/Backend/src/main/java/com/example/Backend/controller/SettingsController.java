@@ -50,7 +50,6 @@ public class SettingsController {
         settings.setTheme(newSettings.getTheme());          // <-- fix here
         settings.setDefaultView(newSettings.getDefaultView());
         settings.setNotifications(newSettings.isNotifications());
-
         // save
         return userSettingsRepository.save(settings);
     }
