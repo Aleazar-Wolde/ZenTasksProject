@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/settings")
 @CrossOrigin(origins = "http://localhost:3000")
 public class SettingsController {
-
     @Autowired
     private UserRepository userRepository;
 
