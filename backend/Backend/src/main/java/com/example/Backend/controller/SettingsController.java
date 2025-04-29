@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.*;
 public class SettingsController {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private UserSettingsRepository userSettingsRepository;
-
     @GetMapping
     public UserSettings getSettings(Authentication auth) {
         String username = auth.getName();
