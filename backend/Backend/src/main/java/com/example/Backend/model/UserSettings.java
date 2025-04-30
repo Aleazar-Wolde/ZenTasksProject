@@ -36,4 +36,7 @@ public class UserSettings {
 
     public void setTheme(Object theme) {
     }
+
+    public Object getDefaultView() {
+    }
 }
